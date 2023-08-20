@@ -126,7 +126,7 @@ def show_table_and_plot(data, method):
 # Создайте основное окно
 root = tk.Tk()
 root.title("Тормозные расчёты")
-
+root.resizable(False, False)
 
 # Создайте вкладки
 tab_control = ttk.Notebook(root)
