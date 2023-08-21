@@ -25,20 +25,6 @@ def calculate_speed():
     B = float(entry_B.get().replace(',', '.')) if entry_B.get() else 0
     C = float(entry_C.get().replace(',', '.')) if entry_C.get() else 0
 
-    # Тест параметры
-    #Vn = 60  # Начальная скорость в км/ч
-    #i = -5.4  # Наклон спуска в %
-    #Q = 2100  # Вес sostава в тоннах
-    #P = 120  # Вес локомотива в тоннах
-    #u = 123.2  # Единичное ускорение поезда в м/с^2
-    #thetachr = 0.242
-    #thetakr = 0.054
-    #a = 7
-    #c = 10
-    #A = 0.889
-    #B = 0.00629
-    #C = 0.0001572
-
     try:
         result_list = speed.calculate_intervals(Vn, i, Q, P, u, thetachr, thetakr, a, c, A, B, C)
         show_table_and_plot(result_list, method=1)
@@ -59,21 +45,8 @@ def calculate_time():
     C = float(entry_C_2.get().replace(',', '.')) if entry_C_2.get() else 0.0
     l = float(entry_length.get().replace(',', '.')) if entry_length.get() else 0.0
 
-    #Тест параметры
-    #Vn = 60  # Начальная скорость в км/ч
-    #i = -2.9  # Наклон спуска в %
-    #Q = 4200  # Вес sostава в тоннах
-    #P = 120  # Вес локомотива в тоннах
-    #u = 123.2  # Единичное ускорение поезда в м/с^2
-    #l = 950  # Длина поезда в метрах
-    #thetachr = 0.212
-    #thetakr = 0.074
-    #A = 0.889
-    #B = 0.00629
-    #C = 0.0001572
 
     # Выполните расчеты для Метода 2 с использованием введенных значений
-    # Замените следующий код на реальные расчеты с использованием полученных значений
     try:
         result_list = time.calculate_braking_intervals(Vn, i, Q, P, u, l, thetachr, thetakr, A, B, C)
         show_table_and_plot(result_list, method=2)
