@@ -25,6 +25,20 @@ def calculate_speed():
     B = float(entry_B.get().replace(',', '.')) if entry_B.get() else 0
     C = float(entry_C.get().replace(',', '.')) if entry_C.get() else 0
 
+    #Тест параметры
+    Vn = 60  # Начальная скорость в км/ч
+    i = -5.4  # Наклон спуска в %
+    Q = 2100  # Вес sostава в тоннах
+    P = 120  # Вес локомотива в тоннах
+    u = 123.2  # Единичное ускорение поезда в м/с^2
+    thetachr = 0.242
+    thetakr = 0.054
+    a = 7
+    c = 10
+    A = 0.889
+    B = 0.00629
+    C = 0.0001572
+
     try:
         result_list = speed.calculate_intervals(Vn, i, Q, P, u, thetachr, thetakr, a, c, A, B, C)
         show_table_and_plot(result_list, method=1)
@@ -44,6 +58,19 @@ def calculate_time():
     B = float(entry_B_2.get().replace(',', '.')) if entry_B_2.get() else 0.0
     C = float(entry_C_2.get().replace(',', '.')) if entry_C_2.get() else 0.0
     l = float(entry_length.get().replace(',', '.')) if entry_length.get() else 0.0
+
+    #Тест параметры
+    Vn = 60  # Начальная скорость в км/ч
+    i = -2.9  # Наклон спуска в %
+    Q = 4200  # Вес sostава в тоннах
+    P = 120  # Вес локомотива в тоннах
+    u = 123.2  # Единичное ускорение поезда в м/с^2
+    l = 950  # Длина поезда в метрах
+    thetachr = 0.212
+    thetakr = 0.074
+    A = 0.889
+    B = 0.00629
+    C = 0.0001572
 
 
     # Выполните расчеты для Метода 2 с использованием введенных значений
@@ -79,21 +106,28 @@ def show_table_and_plot(data, method):
 
     if method == 1:
         x_column = 'dΣS'
-        y_column = 'dΣt'
+        y_column = 'Vк'
         data.plot(x=x_column, y=y_column, kind='line', marker='o', linestyle='-')
         plt.xlabel('dΣS')
-        plt.ylabel('dΣt')
-        plt.title('График зависимости dΣt от dΣS')
+        plt.ylabel('Vк')
+        plt.title('График зависимости скорости от пройденного расстояния')
         plt.show()
     elif method == 2:
         x_column = 'dΣS'
-        y_column = '№ интервала'
-        data[y_column] = data[y_column].map(lambda x: int(x) * 3)
+        y_column = 'Vк'
         data.plot(x=x_column, y=y_column, kind='line', marker='o', linestyle='-')
         plt.xlabel('dΣS')
-        plt.ylabel('dΣt')
-        plt.title('График зависимости dΣt от dΣS')
-        plt.show()
+        plt.ylabel('Vк')
+        plt.title('График зависимости скорости от пройденного расстояния')
+        plt.show(block=False)
+        x_column = '№ интервала'
+        y_column = 'ϑсост'
+        data[x_column] = data[x_column].map(lambda x: int(x) * 3)
+        data.plot(x=x_column, y=y_column, kind='line', marker='o', linestyle='-')
+        plt.xlabel('dΣt')
+        plt.ylabel('ϑсост')
+        plt.title('График наполнения тормозных цилиндров')
+        plt.show(block=False)
 
 
 # Создайте основное окно
@@ -114,17 +148,17 @@ label_vn.grid(row=0, column=0, padx=5, pady=5)
 entry_vn = ttk.Entry(tab1)
 entry_vn.grid(row=0, column=1, padx=5, pady=5)
 
-label_i = tk.Label(tab1, text="Наклон спуска, % (i):")
+label_i = tk.Label(tab1, text="Уклон, % (i):")
 label_i.grid(row=1, column=0, padx=5, pady=5)
 entry_i = ttk.Entry(tab1)
 entry_i.grid(row=1, column=1, padx=5, pady=5)
 
-label_q = tk.Label(tab1, text="Вес состава, т (Q):")
+label_q = tk.Label(tab1, text="Масса состава, т (Q):")
 label_q.grid(row=2, column=0, padx=5, pady=5)
 entry_q = ttk.Entry(tab1)
 entry_q.grid(row=2, column=1, padx=5, pady=5)
 
-label_p = tk.Label(tab1, text="Вес локомотива, т (P):")
+label_p = tk.Label(tab1, text="Масса локомотива, т (P):")
 label_p.grid(row=3, column=0, padx=5, pady=5)
 entry_p = ttk.Entry(tab1)
 entry_p.grid(row=3, column=1, padx=5, pady=5)
@@ -183,17 +217,17 @@ label_vn_2.grid(row=0, column=0, padx=5, pady=5)
 entry_vn_2 = ttk.Entry(tab2)
 entry_vn_2.grid(row=0, column=1, padx=5, pady=5)
 
-label_i_2 = tk.Label(tab2, text="Наклон спуска, % (i):")
+label_i_2 = tk.Label(tab2, text="Уклон, % (i):")
 label_i_2.grid(row=1, column=0, padx=5, pady=5)
 entry_i_2 = ttk.Entry(tab2)
 entry_i_2.grid(row=1, column=1, padx=5, pady=5)
 
-label_q_2 = tk.Label(tab2, text="Вес состава, т (Q):")
+label_q_2 = tk.Label(tab2, text="Масса состава, т (Q):")
 label_q_2.grid(row=2, column=0, padx=5, pady=5)
 entry_q_2 = ttk.Entry(tab2)
 entry_q_2.grid(row=2, column=1, padx=5, pady=5)
 
-label_p_2 = tk.Label(tab2, text="Вес локомотива, т (P):")
+label_p_2 = tk.Label(tab2, text="Масса локомотива, т (P):")
 label_p_2.grid(row=3, column=0, padx=5, pady=5)
 entry_p_2 = ttk.Entry(tab2)
 entry_p_2.grid(row=3, column=1, padx=5, pady=5)
